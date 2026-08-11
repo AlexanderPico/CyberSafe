@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A threat-first three-page guide to account security in the age of AI for friends and family.">
+  <title>Passwords in the Age of AI — Friends &amp; Family Guide</title>
+  <style>
+    :root {
+      --ink: #13243a;
+      --body: #29394a;
+      --muted: #526071;
+      --paper: #fffdf8;
+      --canvas: #d9dde1;
+      --accent: #cc4b2c;
+      --accent-dark: #97301c;
+      --wash: #f3eee4;
+      --cool: #e8f0f5;
+      --rule: #b8c0c7;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: Avenir Next, Avenir, Helvetica Neue, Arial, sans-serif;
+    }
+    a { color: var(--accent-dark); }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    .document {
+      display: grid;
+      justify-content: center;
+      gap: 28px;
+      padding: 28px 16px 56px;
+    }
+    .sheet {
+      width: 8.5in;
+      min-height: 11in;
+      padding: .4in .44in .33in;
+      background: var(--paper);
+      box-shadow: 0 10px 32px rgba(19,36,58,.18);
+      display: grid;
+      gap: .13in;
+    }
+    .page-one { grid-template-rows: auto auto 1fr auto auto; }
+    .page-two { grid-template-rows: auto auto 1fr auto auto; }
+    .page-three { grid-template-rows: auto auto 1fr auto auto; }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) auto;
+      gap: .15in;
+      align-items: end;
+      padding-bottom: .1in;
+      border-bottom: 4px solid var(--ink);
+    }
+    .eyebrow {
+      margin: 0 0 3px;
+      color: var(--accent-dark);
+      font-size: 9pt;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1, .page-title, .section-title {
+      margin: 0;
+      font-family: Palatino, Palatino Linotype, Book Antiqua, Georgia, serif;
+      letter-spacing: -.025em;
+    }
+    h1 { font-size: 32pt; line-height: .96; }
+    .page-title { font-size: 29pt; line-height: 1; }
+    .framing {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 11.5pt;
+      font-weight: 600;
+      line-height: 1.28;
+    }
+    .page-number {
+      padding-bottom: 2px;
+      color: var(--muted);
+      font-size: 8.5pt;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .premise {
+      display: grid;
+      grid-template-columns: 1.45in minmax(0,1fr);
+      gap: .18in;
+      align-items: center;
+      padding: .14in .16in;
+      border: 2px solid var(--ink);
+    }
+    .premise strong {
+      color: var(--accent-dark);
+      font-family: Palatino, Georgia, serif;
+      font-size: 17pt;
+      line-height: 1.08;
+    }
+    .premise p {
+      margin: 0;
+      color: var(--body);
+      font-size: 10.7pt;
+      line-height: 1.36;
+    }
+
+    .path-list {
+      display: grid;
+      grid-template-rows: repeat(5,1fr);
+      border-top: 1px solid var(--rule);
+    }
+    .path {
+      display: grid;
+      grid-template-columns: .42in 1.42in minmax(0,1fr) minmax(0,1fr);
+      gap: .1in;
+      align-items: center;
+      padding: .09in .04in;
+      border-bottom: 1px solid var(--rule);
+    }
+    .path-num {
+      color: var(--accent-dark);
+      font-family: Palatino, Georgia, serif;
+      font-size: 21pt;
+      font-weight: 700;
+    }
+    .path h2 {
+      margin: 0;
+      font-size: 10.5pt;
+      line-height: 1.12;
+      text-transform: uppercase;
+    }
+    .path p {
+      margin: 0;
+      color: var(--body);
+      font-size: 9.7pt;
+      line-height: 1.3;
+    }
+    .path .response {
+      color: var(--ink);
+      font-weight: 750;
+    }
+
+    .agent-note {
+      display: grid;
+      grid-template-columns: 1.3in minmax(0,1fr);
+      gap: .16in;
+      padding: .13in .15in;
+      background: var(--cool);
+      border-left: 5px solid var(--ink);
+    }
+    .agent-note h2 {
+      margin: 0;
+      font-family: Palatino, Georgia, serif;
+      font-size: 16pt;
+      line-height: 1.08;
+    }
+    .agent-note p {
+      margin: 0;
+      color: var(--body);
+      font-size: 10pt;
+      line-height: 1.33;
+    }
+
+    .priority {
+      display: grid;
+      grid-template-columns: auto minmax(0,1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 8px 11px;
+      background: var(--ink);
+      color: white;
+    }
+    .priority strong {
+      color: #ffd8cc;
+      font-size: 9pt;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .priority span {
+      font-size: 9pt;
+      font-weight: 750;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .moves {
+      display: grid;
+      grid-template: repeat(3,1fr) / minmax(0,1fr) minmax(0,1fr);
+      border-top: 1px solid var(--rule);
+    }
+    .move {
+      display: grid;
+      grid-template-columns: .38in minmax(0,1fr);
+      gap: .09in;
+      align-content: center;
+      padding: .11in .12in .1in .03in;
+      border-bottom: 1px solid var(--rule);
+    }
+    .move:nth-child(odd) { border-right: 1px solid var(--rule); padding-right: .17in; }
+    .move:nth-child(5), .move:nth-child(6) { border-bottom: 0; }
+    .move-num {
+      width: .34in;
+      height: .34in;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      color: var(--accent-dark);
+      font-family: Palatino, Georgia, serif;
+      font-size: 15pt;
+      font-weight: 700;
+    }
+    .move h2 {
+      margin: 0 0 3px;
+      font-size: 11pt;
+      line-height: 1.12;
+      text-transform: uppercase;
+    }
+    .move p {
+      margin: 0;
+      color: var(--body);
+      font-size: 10.1pt;
+      line-height: 1.3;
+    }
+    .move .stops {
+      display: block;
+      margin-top: 3px;
+      color: var(--accent-dark);
+      font-size: 9.2pt;
+      font-weight: 800;
+    }
+
+    .password-box {
+      display: grid;
+      grid-template-columns: 1.25in minmax(0,1fr) minmax(0,1fr);
+      gap: .16in;
+      padding: .12in .15in;
+      background: var(--wash);
+      border-top: 3px solid var(--accent);
+      border-bottom: 1px solid #d2c7b6;
+    }
+    .password-box h2 {
+      margin: 0;
+      font-family: Palatino, Georgia, serif;
+      font-size: 17pt;
+      line-height: 1.06;
+    }
+    .password-box h3 {
+      margin: 0 0 4px;
+      color: var(--accent-dark);
+      font-size: 9.5pt;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .password-box ul { margin: 0; padding-left: 16px; }
+    .password-box li {
+      margin: 0 0 3px;
+      color: var(--body);
+      font-size: 9.2pt;
+      line-height: 1.25;
+    }
+
+    .fifteen {
+      display: grid;
+      grid-template-columns: 1.22in repeat(4,minmax(0,1fr));
+      gap: .09in;
+      align-items: center;
+      padding: .1in .12in;
+      background: var(--cool);
+      border-left: 5px solid var(--ink);
+    }
+    .fifteen h2 {
+      margin: 0;
+      font-size: 10.8pt;
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+    .quick-check {
+      display: grid;
+      grid-template-columns: 12px minmax(0,1fr);
+      gap: 5px;
+      color: var(--body);
+      font-size: 8.7pt;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .check-box {
+      width: 10px;
+      height: 10px;
+      margin-top: 1px;
+      border: 1.6px solid var(--ink);
+      background: white;
+    }
+
+    .win {
+      display: grid;
+      grid-template-columns: 1.3in minmax(0,1fr);
+      gap: .16in;
+      padding: .14in .16in;
+      background: var(--wash);
+      border-top: 3px solid var(--accent);
+    }
+    .win h2 {
+      margin: 0;
+      font-family: Palatino, Georgia, serif;
+      font-size: 17pt;
+      line-height: 1.06;
+    }
+    .win ol {
+      margin: 0;
+      padding-left: 18px;
+      columns: 2;
+      column-gap: .25in;
+    }
+    .win li {
+      margin: 0 0 5px;
+      color: var(--body);
+      font-size: 10pt;
+      line-height: 1.28;
+      break-inside: avoid;
+    }
+
+    .fallback {
+      padding: .1in .14in;
+      border: 2px solid var(--ink);
+      color: var(--body);
+      font-size: 10pt;
+      line-height: 1.3;
+    }
+    .fallback strong { color: var(--ink); }
+
+    .sign-in-guide {
+      display: grid;
+      grid-template-columns: 1.15in repeat(3,minmax(0,1fr));
+      border: 1px solid var(--ink);
+    }
+    .guide-heading {
+      display: grid;
+      align-content: center;
+      padding: .12in;
+      background: var(--ink);
+      color: white;
+    }
+    .guide-heading h2 {
+      margin: 0;
+      font-family: Palatino, Georgia, serif;
+      font-size: 14pt;
+      line-height: 1;
+    }
+    .term {
+      padding: .11in .12in;
+      border-left: 1px solid var(--rule);
+    }
+    .term h3 {
+      margin: 0 0 3px;
+      color: var(--accent-dark);
+      font-size: 10pt;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .term p {
+      margin: 0;
+      color: var(--body);
+      font-size: 9.3pt;
+      line-height: 1.28;
+    }
+    .term strong { color: var(--ink); }
+
+    .lanes {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: .22in;
+    }
+    .lane {
+      display: grid;
+      grid-template-rows: auto repeat(5,1fr);
+      border-top: 4px solid var(--ink);
+    }
+    .lane.advanced { border-top-color: var(--accent); }
+    .lane-head {
+      padding: .1in .12in;
+      background: var(--cool);
+      border-bottom: 1px solid var(--rule);
+    }
+    .advanced .lane-head { background: var(--wash); }
+    .lane-head p {
+      margin: 0 0 2px;
+      color: var(--accent-dark);
+      font-size: 8pt;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .lane-head h2 {
+      margin: 0;
+      font-family: Palatino, Georgia, serif;
+      font-size: 17pt;
+      line-height: 1.04;
+    }
+    .lane-step {
+      display: grid;
+      grid-template-columns: .27in minmax(0,1fr);
+      gap: .07in;
+      align-content: center;
+      min-height: .82in;
+      padding: .08in;
+      border-bottom: 1px solid var(--rule);
+    }
+    .lane-step:last-child { border-bottom: 0; }
+    .step-num {
+      color: var(--accent-dark);
+      font-family: Palatino, Georgia, serif;
+      font-size: 15pt;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .lane-step h3 {
+      margin: 0 0 2px;
+      font-size: 10.1pt;
+      line-height: 1.12;
+      text-transform: uppercase;
+    }
+    .lane-step p {
+      margin: 0;
+      color: var(--body);
+      font-size: 9.35pt;
+      line-height: 1.25;
+    }
+
+    .emergency {
+      display: grid;
+      grid-template-columns: 1.25in minmax(0,1fr);
+      gap: .16in;
+      align-items: center;
+      padding: .12in .15in;
+      background: var(--ink);
+      color: white;
+    }
+    .emergency h2 {
+      margin: 0;
+      color: #ffd8cc;
+      font-family: Palatino, Georgia, serif;
+      font-size: 16pt;
+      line-height: 1.05;
+    }
+    .emergency p {
+      margin: 0;
+      font-size: 9.5pt;
+      line-height: 1.3;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template: 1fr 1fr / minmax(0,1fr) minmax(0,1fr);
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+    }
+    .concept {
+      padding: .12in .14in;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .concept h2 {
+      margin: 0 0 4px;
+      color: var(--accent-dark);
+      font-size: 11pt;
+      text-transform: uppercase;
+    }
+    .concept p {
+      margin: 0;
+      color: var(--body);
+      font-size: 10.2pt;
+      line-height: 1.34;
+    }
+
+    .two-up {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: .24in;
+      min-height: 0;
+    }
+    .procedure {
+      border-top: 4px solid var(--ink);
+    }
+    .procedure.danger { border-top-color: var(--accent); }
+    .procedure header {
+      padding: .1in .12in;
+      background: var(--cool);
+      border-bottom: 1px solid var(--rule);
+    }
+    .procedure.danger header { background: var(--wash); }
+    .procedure header p {
+      margin: 0 0 2px;
+      color: var(--accent-dark);
+      font-size: 8pt;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .procedure h2 {
+      margin: 0;
+      font-family: Palatino, Georgia, serif;
+      font-size: 18pt;
+      line-height: 1.06;
+    }
+    .procedure ol { margin: 0; padding: 0; list-style: none; counter-reset: steps; }
+    .procedure li {
+      counter-increment: steps;
+      display: grid;
+      grid-template-columns: .28in minmax(0,1fr);
+      gap: .07in;
+      padding: .09in .08in;
+      border-bottom: 1px solid var(--rule);
+      color: var(--body);
+      font-size: 9.7pt;
+      line-height: 1.3;
+    }
+    .procedure li::before {
+      content: counter(steps);
+      color: var(--accent-dark);
+      font-family: Palatino, Georgia, serif;
+      font-size: 15pt;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .procedure li strong { color: var(--ink); }
+
+    .advanced-strip {
+      display: grid;
+      grid-template-columns: 1.15in repeat(3,minmax(0,1fr));
+      gap: .13in;
+      padding: .12in .14in;
+      border: 2px solid var(--ink);
+    }
+    .advanced-strip h2 {
+      margin: 0;
+      font-family: Palatino, Georgia, serif;
+      font-size: 16pt;
+      line-height: 1.06;
+    }
+    .advanced-strip p {
+      margin: 0;
+      color: var(--body);
+      font-size: 9.2pt;
+      line-height: 1.28;
+    }
+    .advanced-strip strong { color: var(--ink); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 8pt;
+      line-height: 1.25;
+    }
+    footer a { font-weight: 750; text-decoration: none; }
+
+    @media screen and (max-width: 860px) {
+      .document { display: block; padding: 0; }
+      .sheet {
+        width: 100%;
+        min-height: 0;
+        display: block;
+        padding: 30px clamp(18px,5vw,44px);
+        box-shadow: none;
+      }
+      .sheet + .sheet { border-top: 14px solid var(--canvas); }
+      .sheet > * { margin-bottom: 24px; }
+      .sheet > *:last-child { margin-bottom: 0; }
+      .masthead { grid-template-columns: 1fr; gap: 10px; }
+      .page-number { display: none; }
+      h1, .page-title { font-size: clamp(2.35rem,10vw,3.7rem); }
+      .premise, .agent-note, .win { display: block; padding: 20px; }
+      .premise strong, .agent-note h2, .win h2 { display: block; margin-bottom: 12px; font-size: 1.65rem; }
+      .password-box { display: block; padding: 20px; }
+      .password-box > * { margin-bottom: 18px; }
+      .password-box > *:last-child { margin-bottom: 0; }
+      .password-box h2 { font-size: 1.65rem; }
+      .password-box h3 { font-size: 1rem; }
+      .password-box li { font-size: 1rem; line-height: 1.45; }
+      .fifteen { grid-template-columns: 1fr; gap: 12px; padding: 18px; }
+      .fifteen h2 { font-size: 1.1rem; }
+      .quick-check { font-size: 1rem; line-height: 1.4; }
+      .sign-in-guide, .lanes { display: block; }
+      .guide-heading, .term { padding: 18px; }
+      .term { border-left: 0; border-top: 1px solid var(--rule); }
+      .term h3 { font-size: 1rem; }
+      .term p { font-size: 1rem; line-height: 1.45; }
+      .lane + .lane { margin-top: 28px; }
+      .lane-step { min-height: 0; padding: 18px 6px; }
+      .lane-step h3 { font-size: 1rem; }
+      .lane-step p { font-size: 1rem; line-height: 1.45; }
+      .emergency { grid-template-columns: 1fr; padding: 20px; }
+      .emergency h2 { font-size: 1.65rem; }
+      .emergency p { font-size: 1rem; line-height: 1.45; }
+      .premise p, .agent-note p { font-size: 1rem; line-height: 1.5; }
+      .path-list, .moves, .concept-grid, .two-up { display: block; }
+      .path {
+        display: grid;
+        grid-template-columns: 38px minmax(0,1fr);
+        gap: 8px 10px;
+        padding: 20px 3px;
+      }
+      .path h2 { font-size: 1.05rem; }
+      .path p { grid-column: 2; font-size: 1rem; line-height: 1.48; }
+      .priority { grid-template-columns: 1fr; gap: 5px; }
+      .priority span { text-align: left; line-height: 1.45; white-space: normal; }
+      .move { min-height: 0; padding: 20px 3px; border-right: 0 !important; border-bottom: 1px solid var(--rule) !important; }
+      .move h2 { font-size: 1.05rem; }
+      .move p { font-size: 1rem; line-height: 1.48; }
+      .win ol { columns: 1; }
+      .win li, .fallback { font-size: 1rem; line-height: 1.48; }
+      .concept { padding: 18px 4px; border-left: 0; }
+      .concept h2 { font-size: 1.05rem; }
+      .concept p { font-size: 1rem; line-height: 1.48; }
+      .procedure + .procedure { margin-top: 28px; }
+      .procedure li { padding: 16px 6px; font-size: 1rem; line-height: 1.45; }
+      .advanced-strip { display: block; padding: 20px; }
+      .advanced-strip h2 { margin-bottom: 12px; font-size: 1.65rem; }
+      .advanced-strip p { margin-top: 12px; font-size: 1rem; line-height: 1.45; }
+      footer { display: block; font-size: .86rem; line-height: 1.5; }
+      footer span { display: block; margin-top: 5px; }
+    }
+
+    @page { size: Letter portrait; margin: 0; }
+    @media print {
+      html, body { background: white; }
+      .document { display: block; padding: 0; }
+      .sheet {
+        width: 8.5in;
+        height: 11in;
+        min-height: 11in;
+        margin: 0;
+        overflow: hidden;
+        box-shadow: none;
+        break-after: page;
+        page-break-after: always;
+      }
+      .sheet:last-child { break-after: auto; page-break-after: auto; }
+      .priority, .agent-note, .win, .guide-heading, .emergency, .procedure header, .procedure.danger header {
+        background: white;
+        color: var(--ink);
+        border: 2px solid var(--ink);
+      }
+      .priority strong, .emergency h2 { color: var(--accent-dark); }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <main class="document">
+    <section class="sheet page-one" aria-labelledby="p1-title">
+      <header class="masthead">
+        <div>
+          <h1 id="p1-title">Passwords in the Age of AI</h1>
+          <p class="framing"><strong>One weak point can open the rest.</strong> AI makes familiar attacks easier to research, personalize, and repeat. It does not magically break good encryption.</p>
+        </div>
+        <div class="page-number">Page 1</div>
+      </header>
+
+      <aside class="premise">
+        <strong>These are separate ways in.</strong>
+        <p>An attacker does not need to follow one movie-like sequence. A leaked password, a convincing call, weak recovery, a stolen signed-in session, or a software flaw can each be the opening. <b>Your goal is to keep one opening from spreading everywhere.</b></p>
+      </aside>
+
+      <section class="path-list" aria-label="Five common attack paths">
+        <article class="path">
+          <div class="path-num">1</div>
+          <h2>A password leaks</h2>
+          <p>A password from an old site is tried against email or shopping accounts. AI adds little here; ordinary automation already does most of this.</p>
+          <p class="response"><strong>Best interruption:</strong> use a generated password for each account and protect email first.</p>
+        </article>
+        <article class="path">
+          <div class="path-num">2</div>
+          <h2>The request looks real</h2>
+          <p>AI can imitate writing or a familiar voice and tailor a story using public information. Caller ID, tone, and personal details are not proof.</p>
+          <p class="response"><strong>Best interruption:</strong> end the incoming contact and call back using a saved number or the number on your card.</p>
+        </article>
+        <article class="path">
+          <div class="path-num">3</div>
+          <h2>Recovery is weaker</h2>
+          <p>An old phone number, recovery email, support process, or carrier account can bypass a strong sign-in. AI can help gather details and adapt a script.</p>
+          <p class="response"><strong>Best interruption:</strong> keep two independent, tested recovery routes for your most important accounts.</p>
+        </article>
+        <article class="path">
+          <div class="path-num">4</div>
+          <h2>A signed-in device is abused</h2>
+          <p>Malware or a stolen browser session can act as though the device is already signed in. Changing the password may not end that access.</p>
+          <p class="response"><strong>Best interruption:</strong> update devices, use a strong device passcode, and revoke sessions after suspected compromise.</p>
+        </article>
+        <article class="path">
+          <div class="path-num">5</div>
+          <h2>Trusted software has a flaw</h2>
+          <p>AI can help skilled attackers inspect code and adapt known attacks against login, messaging, payment, or password systems.</p>
+          <p class="response"><strong>Best interruption:</strong> update software you control. If a provider reports a breach, use its official notice, review account changes, and distrust breach-related “support.”</p>
+        </article>
+      </section>
+
+      <aside class="agent-note">
+        <h2>Your own AI helper needs limits too</h2>
+        <p>Do not connect a general AI assistant to a password vault or financial account. Avoid broad unattended access to email or a logged-in browser. Never upload password exports, recovery codes, private keys, identity documents, or a complete browser profile. Prefer one task, limited access, and approval before sending, deleting, buying, or changing security settings.</p>
+      </aside>
+
+      <footer>
+        <span>Feasible attack paths, not a claim that every incident uses AI.</span>
+        <span>Updated August 2026</span>
+      </footer>
+    </section>
+
+    <section class="sheet page-two" aria-labelledby="p2-title">
+      <header class="masthead">
+        <div>
+          <h2 class="page-title" id="p2-title">Do these things first</h2>
+          <p class="framing">You do not need perfect security or a weekend-long overhaul. Start with the accounts that control the rest, then improve one account at a time.</p>
+        </div>
+        <div class="page-number">Page 2</div>
+      </header>
+
+      <section class="priority" aria-label="Priority accounts">
+        <strong>Protect in this order</strong>
+        <span>Email → Apple / Google / Microsoft → Password manager → Carrier → Banking</span>
+      </section>
+
+      <section class="moves" aria-label="Six highest-priority actions">
+        <article class="move">
+          <div class="move-num">1</div>
+          <div><h2>Secure your main email</h2><p>Give it a password used nowhere else or add a passkey. Check recovery details and remove devices you do not recognize.</p><span class="stops">Stops one takeover from becoming many resets.</span></div>
+        </article>
+        <article class="move">
+          <div class="move-num">2</div>
+          <div><h2>Replace reuse gradually</h2><p>Let Apple Passwords, Google Password Manager, or another trusted manager generate and save each new password. Move one account at a time.</p><span class="stops">Stops one leaked password from opening a second site.</span></div>
+        </article>
+        <article class="move">
+          <div class="move-num">3</div>
+          <div><h2>Use the strongest sign-in offered</h2><p>Choose a passkey when available. It protects the sign-in step, although a site may still keep weaker password or recovery routes.</p><span class="stops">Makes fake login pages much less useful.</span></div>
+        </article>
+        <article class="move">
+          <div class="move-num">4</div>
+          <div><h2>Build recovery before tightening</h2><p>For email, your platform account, and password manager, keep two tested recovery routes in different places.</p><span class="stops">Reduces both lockout and recovery bypass.</span></div>
+        </article>
+        <article class="move">
+          <div class="move-num">5</div>
+          <div><h2>Keep the devices current</h2><p>Use a strong device passcode, install updates promptly, remove unused apps and extensions, and retire unsupported devices.</p><span class="stops">Limits theft, malware, and known software flaws.</span></div>
+        </article>
+        <article class="move">
+          <div class="move-num">6</div>
+          <div><h2>Use one rule for urgent contact</h2><p>If anyone asks for money, a password, or a code, leave the incoming call or message and contact them through a route you already trust.</p><span class="stops">Works even when the voice or message looks familiar.</span></div>
+        </article>
+      </section>
+
+      <aside class="password-box" aria-label="Simplified password guidance">
+        <h2>If you still need a password</h2>
+        <section>
+          <h3>Avoid</h3>
+          <ul>
+            <li>Pet names, birthdays, quotations, or predictable substitutions</li>
+            <li>One base password changed slightly for each site</li>
+            <li>Reusing even a complicated-looking password</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Do this instead</h3>
+          <ul>
+            <li>Let a password manager generate and save each ordinary password.</li>
+            <li>For the manager’s master password, use a long randomly generated passphrase.</li>
+            <li>Never copy a password printed as an example.</li>
+          </ul>
+        </section>
+      </aside>
+
+      <section class="fifteen" aria-label="Fifteen minute checklist">
+        <h2>Fifteen minutes today</h2>
+        <div class="quick-check"><span class="check-box"></span><span>Secure your main email</span></div>
+        <div class="quick-check"><span class="check-box"></span><span>Replace one reused password</span></div>
+        <div class="quick-check"><span class="check-box"></span><span>Confirm recovery phone and email</span></div>
+        <div class="quick-check"><span class="check-box"></span><span>For urgent requests, leave and call back</span></div>
+      </section>
+
+      <footer>
+        <span>You can improve the rest when you next sign in. Progress beats postponing everything.</span>
+      </footer>
+    </section>
+
+    <section class="sheet page-three" aria-labelledby="p3-title">
+      <header class="masthead">
+        <div>
+          <h2 class="page-title" id="p3-title">Choose your next step</h2>
+          <p class="framing">Use the left side if you are still setting things up. Use the right side if you already have the basics covered.</p>
+        </div>
+        <div class="page-number">Page 3</div>
+      </header>
+
+      <section class="sign-in-guide" aria-label="Password, passkey, and security key comparison">
+        <div class="guide-heading"><h2>What’s the difference?</h2></div>
+        <article class="term"><h3>Password</h3><p>A reusable secret you type. <strong>Use a different generated password for every account.</strong></p></article>
+        <article class="term"><h3>Passkey</h3><p>A phishing-resistant way to sign in. Your device or password manager saves it; you approve with a face, fingerprint, or device PIN. <strong>Weaker recovery routes may still remain.</strong></p></article>
+        <article class="term"><h3>Security key</h3><p>A small physical key you plug in or tap. <strong>An advanced option for your most important accounts.</strong></p></article>
+      </section>
+
+      <section class="lanes" aria-label="Beginner and advanced guidance">
+        <section class="lane" aria-labelledby="setup-title">
+          <header class="lane-head"><p>I’m still getting set up</p><h2 id="setup-title">Help me do it</h2></header>
+          <article class="lane-step"><div class="step-num">1</div><div><h3>Start a password manager</h3><p>Use Apple Passwords, Google Password Manager, or another trusted manager. Move accounts gradually; you do not need to fix everything today.</p></div></article>
+          <article class="lane-step"><div class="step-num">2</div><div><h3>Fix primary email first</h3><p>Give it a unique password or passkey. Check recovery details, signed-in devices, and backup codes.</p></div></article>
+          <article class="lane-step"><div class="step-num">3</div><div><h3>Add a passkey</h3><p>When a site offers one, save it to your device or password manager. Confirm another sign-in and recovery route before removing an old method.</p></div></article>
+          <article class="lane-step"><div class="step-num">4</div><div><h3>Keep recovery independent</h3><p>For critical accounts, keep two tested recovery routes in different places. Do not put the only backup inside the phone, account, or vault it unlocks.</p></div></article>
+          <article class="lane-step"><div class="step-num">5</div><div><h3>Practice one verification rule</h3><p>If anyone urgently asks for money, a password, or a code, leave the contact and call back using a number you already trust.</p></div></article>
+        </section>
+
+        <section class="lane advanced" aria-labelledby="advanced-title">
+          <header class="lane-head"><p>I’ve got the basics covered</p><h2 id="advanced-title">Help me go further</h2></header>
+          <article class="lane-step"><div class="step-num">1</div><div><h3>Harden the keys to everything</h3><p>Use passkeys or physical security keys on primary email, platform identity, password manager, financial, and carrier accounts.</p></div></article>
+          <article class="lane-step"><div class="step-num">2</div><div><h3>Protect your phone number</h3><p>Add a carrier PIN and number-transfer lock when available. Avoid making texts the only recovery route for every account.</p></div></article>
+          <article class="lane-step"><div class="step-num">3</div><div><h3>Review access that can survive</h3><p>Check signed-in sessions, email forwarding, authorized apps, app passwords, and connected services. A password change may not end existing access.</p></div></article>
+          <article class="lane-step"><div class="step-num">4</div><div><h3>Remove forgotten access</h3><p>Sign out old devices, remove unused apps and browser extensions, install updates, and retire devices that no longer receive fixes.</p></div></article>
+          <article class="lane-step"><div class="step-num">5</div><div><h3>Plan for a real emergency</h3><p>Make sure a spouse, caregiver, or executor can locate recovery instructions without casually sharing your master password.</p></div></article>
+        </section>
+      </section>
+
+      <aside class="emergency">
+        <h2>Think an account was hacked?</h2>
+        <p><strong>Stop responding.</strong> From a trusted, updated device that was not used to open the suspicious link or install anything, open the official app or site directly. Secure email first; change exposed or reused passwords; sign out other sessions; check recovery details, forwarding, and connected apps; then call the bank, carrier, or service using a number from its official app, your card or statement, or your saved contacts.</p>
+      </aside>
+
+      <footer>
+        <span>Sources: <a href="https://www.cisa.gov/MFA">CISA</a> • <a href="https://fidoalliance.org/passkeys/">FIDO Alliance</a> • <a href="https://www.ic3.gov/PSA/2024/PSA241203">FBI/IC3</a> • <a href="https://consumer.ftc.gov/consumer-alerts/2023/03/scammers-use-ai-enhance-their-family-emergency-schemes">FTC</a> • <a href="https://www.eff.org/dice">EFF</a></span>
+        <span>Updated August 2026</span>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
