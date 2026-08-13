@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A threat-first three-page guide to account security in the age of AI for friends and family.">
+  <meta name="description" content="A threat-first four-page guide and account-dependency worksheet for friends and family.">
   <title>Passwords in the Age of AI — Friends &amp; Family Guide</title>
   <style>
     :root {
@@ -47,6 +47,7 @@
     .page-one { grid-template-rows: auto auto 1fr auto auto; }
     .page-two { grid-template-rows: auto auto 1fr auto auto; }
     .page-three { grid-template-rows: auto auto 1fr auto auto; }
+    .page-four { grid-template-rows: auto auto 1fr auto auto auto; }
 
     .masthead {
       display: grid;
@@ -562,6 +563,172 @@
     }
     footer a { font-weight: 750; text-decoration: none; }
 
+    .worksheet-rule {
+      display: grid;
+      grid-template-columns: 1.35in minmax(0,1fr);
+      gap: .14in;
+      align-items: center;
+      padding: .1in .13in;
+      background: var(--cool);
+      border-left: 5px solid var(--accent);
+    }
+    .worksheet-rule strong {
+      color: var(--accent-dark);
+      font-size: 9.4pt;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .worksheet-rule p {
+      margin: 0;
+      color: var(--body);
+      font-size: 9.4pt;
+      line-height: 1.27;
+    }
+
+    .dependency-map {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4,minmax(0,1fr));
+      grid-template-rows: repeat(3,minmax(0,1fr));
+      gap: .42in .32in;
+      align-items: center;
+      min-height: 3.75in;
+      padding: .3in .28in;
+      border: 2px solid var(--ink);
+      background-color: #fff;
+      background-image: radial-gradient(circle, #c8c9c8 .65px, transparent .75px);
+      background-size: .14in .14in;
+    }
+    .map-instruction {
+      position: absolute;
+      top: .08in;
+      left: .16in;
+      margin: 0;
+      padding: 0 5px;
+      background: white;
+      color: var(--muted);
+      font-size: 8.2pt;
+      font-style: italic;
+    }
+    .map-node {
+      display: grid;
+      grid-template-columns: .28in minmax(0,1fr);
+      gap: .07in;
+      align-items: center;
+      min-height: .54in;
+      padding: .07in .08in;
+      background: rgba(255,255,255,.96);
+      border: 1.5px solid var(--ink);
+      border-radius: 5px;
+    }
+    .map-node svg {
+      width: .25in;
+      height: .25in;
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .map-node strong {
+      display: block;
+      font-size: 8.7pt;
+      line-height: 1.05;
+    }
+    .map-node span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 7.5pt;
+      line-height: 1;
+      border-bottom: 1px solid #9b9b96;
+      padding-bottom: 2px;
+    }
+
+    .map-examples {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: .18in;
+    }
+    .map-example {
+      padding: .1in .12in;
+      border: 1px solid var(--rule);
+      background: white;
+    }
+    .map-example.bad { border-top: 3px solid var(--accent); }
+    .map-example.good { border-top: 3px solid var(--ink); }
+    .map-example h2 {
+      margin: 0 0 4px;
+      font-size: 9.3pt;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .mini-route {
+      margin: 0 0 4px;
+      color: var(--ink);
+      font-size: 8.2pt;
+      font-weight: 800;
+      line-height: 1.32;
+    }
+    .map-example p:last-child {
+      margin: 0;
+      color: var(--body);
+      font-size: 8.2pt;
+      line-height: 1.22;
+    }
+
+    .map-assessment {
+      display: grid;
+      grid-template-columns: 1.22in minmax(0,1fr);
+      gap: .16in;
+      padding: .11in .13in;
+      background: var(--wash);
+      border-top: 3px solid var(--accent);
+    }
+    .map-assessment h2 {
+      margin: 0;
+      font-family: Palatino, Georgia, serif;
+      font-size: 16pt;
+      line-height: 1.03;
+    }
+    .assessment-body { display: grid; gap: .08in; }
+    .weakness-grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 3px .16in;
+    }
+    .weakness {
+      display: grid;
+      grid-template-columns: 10px minmax(0,1fr);
+      gap: 5px;
+      color: var(--body);
+      font-size: 8.3pt;
+      line-height: 1.18;
+    }
+    .weakness::before {
+      content: "□";
+      color: var(--ink);
+      font-weight: 800;
+    }
+    .marking-key {
+      margin: 0;
+      padding-top: .06in;
+      border-top: 1px solid #cdbdad;
+      color: var(--ink);
+      font-size: 8.6pt;
+      font-weight: 750;
+      line-height: 1.2;
+    }
+    .worksheet-safety {
+      margin: 0;
+      padding: .08in .12in;
+      border: 1.5px solid var(--ink);
+      color: var(--body);
+      font-size: 8.7pt;
+      line-height: 1.24;
+    }
+    .worksheet-safety strong { color: var(--accent-dark); }
+
     @media screen and (max-width: 860px) {
       .document { display: block; padding: 0; }
       .sheet {
@@ -625,6 +792,29 @@
       .advanced-strip { display: block; padding: 20px; }
       .advanced-strip h2 { margin-bottom: 12px; font-size: 1.65rem; }
       .advanced-strip p { margin-top: 12px; font-size: 1rem; line-height: 1.45; }
+      .worksheet-rule { grid-template-columns: 1fr; gap: 8px; padding: 18px; }
+      .worksheet-rule strong, .worksheet-rule p { font-size: 1rem; line-height: 1.45; }
+      .dependency-map {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        grid-template-rows: none;
+        gap: 18px;
+        min-height: 0;
+        padding: 62px 18px 24px;
+      }
+      .map-instruction { top: 16px; right: 16px; left: 16px; font-size: .9rem; line-height: 1.3; }
+      .map-node { min-height: 70px; padding: 10px; }
+      .map-node svg { width: 30px; height: 30px; }
+      .map-node strong { font-size: .95rem; }
+      .map-node span { font-size: .8rem; }
+      .map-examples, .map-assessment { grid-template-columns: 1fr; }
+      .map-example { padding: 18px; }
+      .map-example h2 { font-size: 1rem; }
+      .mini-route, .map-example p:last-child { font-size: .95rem; line-height: 1.4; }
+      .map-assessment { padding: 18px; }
+      .map-assessment h2 { font-size: 1.65rem; }
+      .weakness-grid { grid-template-columns: 1fr; gap: 9px; }
+      .weakness, .marking-key, .worksheet-safety { font-size: 1rem; line-height: 1.4; }
+      .worksheet-safety { padding: 16px; }
       footer { display: block; font-size: .86rem; line-height: 1.5; }
       footer span { display: block; margin-top: 5px; }
     }
@@ -833,6 +1023,82 @@
         <span>Sources: <a href="https://www.cisa.gov/MFA">CISA</a> • <a href="https://fidoalliance.org/passkeys/">FIDO Alliance</a> • <a href="https://www.ic3.gov/PSA/2024/PSA241203">FBI/IC3</a> • <a href="https://consumer.ftc.gov/consumer-alerts/2023/03/scammers-use-ai-enhance-their-family-emergency-schemes">FTC</a> • <a href="https://www.eff.org/dice">EFF</a></span>
         <span>Updated August 2026</span>
       </footer>
+    </section>
+
+    <section class="sheet page-four" aria-labelledby="p4-title">
+      <header class="masthead">
+        <div>
+          <h2 class="page-title" id="p4-title">Map what can unlock what</h2>
+          <p class="framing">Draw the recovery and dependency routes across your important accounts. The result should show where one loss or compromise could spread.</p>
+        </div>
+        <div class="page-number">Page 4</div>
+      </header>
+
+      <aside class="worksheet-rule">
+        <strong>Use one kind of arrow</strong>
+        <p>Draw <b>A → B</b> when access to A can unlock, reset, reveal a secret for, or bypass B. Label each box, cross out what you do not use, and draw additional boxes where needed.</p>
+      </aside>
+
+      <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+        <symbol id="ws-brain" viewBox="0 0 24 24"><path d="M9.5 4.5A3 3 0 0 0 4.8 7a3.2 3.2 0 0 0 .2 6 3.2 3.2 0 0 0 4.5 3.8M14.5 4.5A3 3 0 0 1 19.2 7a3.2 3.2 0 0 1-.2 6 3.2 3.2 0 0 1-4.5 3.8M12 4v16M8 9h4M12 14h4M7 14a3 3 0 0 0 2 4M17 9a3 3 0 0 0-2-3"/></symbol>
+        <symbol id="ws-safe" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M12 9v3l2 1M6 8h1M6 16h1"/></symbol>
+        <symbol id="ws-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17 12v3M20 12v2"/></symbol>
+        <symbol id="ws-note" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v5h4M9 12h6M9 16h6"/></symbol>
+        <symbol id="ws-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
+        <symbol id="ws-id" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6M18 4l1 1 2-2"/></symbol>
+        <symbol id="ws-laptop" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="12" rx="1"/><path d="M2 20h20M9 20l1-4h4l1 4"/></symbol>
+        <symbol id="ws-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M10 5h4M11 18h2"/></symbol>
+        <symbol id="ws-cloud" viewBox="0 0 24 24"><path d="M7 18h11a4 4 0 0 0 .5-8A6 6 0 0 0 7 8.5 4.5 4.5 0 0 0 7 18z"/></symbol>
+        <symbol id="ws-bank" viewBox="0 0 24 24"><path d="M3 9h18L12 3zM5 9v8M9 9v8M15 9v8M19 9v8M3 17h18M2 21h20"/></symbol>
+        <symbol id="ws-tower" viewBox="0 0 24 24"><path d="M12 6v15M8 21h8M9 15h6M10 10h4M6 8a8 8 0 0 1 0-5M18 8a8 8 0 0 0 0-5M8.5 9a5 5 0 0 1 0-5M15.5 9a5 5 0 0 0 0-5"/></symbol>
+        <symbol id="ws-other" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/></symbol>
+      </svg>
+
+      <section class="dependency-map" aria-label="Account dependency mapping workspace">
+        <p class="map-instruction">Draw arrows directly on this map. Use the open space for routes, notes, and additional accounts.</p>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-brain"/></svg><div><strong>Remembered secret</strong><span>Used for: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-safe"/></svg><div><strong>Physical safe</strong><span>Location: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-key"/></svg><div><strong>Password manager</strong><span>e.g., Bitwarden: ____</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-note"/></svg><div><strong>Digital notes</strong><span>e.g., Obsidian: _____</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-mail"/></svg><div><strong>Primary email</strong><span>Account: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-id"/></svg><div><strong>Platform account</strong><span>Apple / Google / MS</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-laptop"/></svg><div><strong>Laptop login</strong><span>Device: ___________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-phone"/></svg><div><strong>Phone PIN</strong><span>Device: ___________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-cloud"/></svg><div><strong>Cloud storage</strong><span>e.g., Dropbox: _____</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-bank"/></svg><div><strong>Bank / payment</strong><span>Account: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-tower"/></svg><div><strong>Phone carrier</strong><span>Provider: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-other"/></svg><div><strong>Other</strong><span>Name: ____________</span></div></div>
+      </section>
+
+      <section class="map-examples" aria-label="Dependency map examples">
+        <article class="map-example bad">
+          <h2>Weak pattern: a loop</h2>
+          <p class="mini-route">Digital notes → Password manager → Cloud storage → Digital notes</p>
+          <p>Each service holds the next secret. Losing access may block recovery; compromising one may spread around the loop.</p>
+        </article>
+        <article class="map-example good">
+          <h2>Stronger pattern: separate routes</h2>
+          <p class="mini-route">Remembered passphrase → Password manager → Accounts<br>Physical safe → Backup code → Primary email</p>
+          <p>The important recovery routes live in different places, and neither route circles back into itself.</p>
+        </article>
+      </section>
+
+      <section class="map-assessment" aria-labelledby="assessment-title">
+        <h2 id="assessment-title">Look for weak patterns</h2>
+        <div class="assessment-body">
+          <div class="weakness-grid">
+            <div class="weakness">A route circles back to where it started.</div>
+            <div class="weakness">One phone, email, or vault controls most routes.</div>
+            <div class="weakness">Recovery is stored inside what it must recover.</div>
+            <div class="weakness">A weaker reset route bypasses a strong passkey.</div>
+            <div class="weakness">An old device, phone number, or app is still trusted.</div>
+            <div class="weakness">No route survives losing both phone and email.</div>
+          </div>
+          <p class="marking-key">Circle a single point of failure. Put an X beside every loop. Star one route to separate or strengthen this week.</p>
+        </div>
+      </section>
+
+      <p class="worksheet-safety"><strong>Do not write actual passwords, PINs, recovery codes, or private keys on this page.</strong> A completed map reveals how your accounts fit together. Store it securely, or destroy it after making the changes you identified.</p>
     </section>
   </main>
 </body>
