@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A threat-first four-page guide and account-dependency worksheet for friends and family.">
+  <meta name="description" content="A decisive four-page guide to passwords, passkeys, YubiKeys, recovery, and account dependencies for friends and family.">
   <title>Passwords in the Age of AI — Friends &amp; Family Guide</title>
   <style>
     :root {
@@ -729,6 +729,255 @@
     }
     .worksheet-safety strong { color: var(--accent-dark); }
 
+    /* Version 2: exact credential, sign-in, recovery, and worksheet guidance */
+    .page-two { grid-template-rows: auto auto auto 1fr auto auto; }
+    .page-three { grid-template-rows: auto auto auto 1fr auto auto; }
+    .page-four { grid-template-rows: auto auto auto 1fr auto auto; }
+    .page-five { grid-template-rows: auto auto 1fr auto auto auto; }
+
+    .password-types {
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: .14in;
+    }
+    .password-type {
+      padding: .12in .13in;
+      border-top: 4px solid var(--ink);
+      background: var(--cool);
+    }
+    .password-type.master { border-top-color: var(--accent); background: var(--wash); }
+    .password-type h2 { margin: 0 0 5px; font-family: Palatino, Georgia, serif; font-size: 14.5pt; line-height: 1.05; }
+    .password-type p { margin: 0 0 5px; color: var(--body); font-size: 8.9pt; line-height: 1.24; }
+    .password-type p:last-child { margin: 0; }
+    .password-type strong { color: var(--accent-dark); }
+
+    .storage-guide {
+      display: grid;
+      grid-template-rows: auto repeat(7,minmax(0,1fr));
+      border: 1px solid var(--ink);
+    }
+    .storage-head, .storage-row {
+      display: grid;
+      grid-template-columns: 1.35in minmax(0,1fr) minmax(0,.9fr);
+    }
+    .storage-head { background: var(--ink); color: white; }
+    .storage-head strong { padding: .07in .1in; font-size: 8.2pt; letter-spacing: .08em; text-transform: uppercase; }
+    .storage-row { align-items: center; border-top: 1px solid var(--rule); }
+    .storage-row > * { padding: .055in .1in; font-size: 8.45pt; line-height: 1.18; }
+    .storage-row h3 { margin: 0; font-size: 8.7pt; text-transform: uppercase; }
+    .storage-row p { margin: 0; color: var(--body); }
+    .storage-row .never { color: var(--accent-dark); font-weight: 750; }
+
+    .password-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: .14in;
+    }
+    .plain-rule, .today-box { padding: .1in .12in; }
+    .plain-rule { background: var(--wash); border-left: 5px solid var(--accent); }
+    .today-box { background: var(--cool); border-left: 5px solid var(--ink); }
+    .plain-rule h2, .today-box h2 { margin: 0 0 5px; font-size: 10pt; text-transform: uppercase; }
+    .plain-rule p { margin: 0; color: var(--body); font-size: 8.7pt; line-height: 1.24; }
+    .today-list { display: grid; grid-template-columns: 1fr 1fr; gap: 4px .1in; }
+    .today-list span { font-size: 8.4pt; font-weight: 750; line-height: 1.18; }
+
+    .method-order {
+      display: grid;
+      grid-template-columns: repeat(4,minmax(0,1fr));
+      border: 1px solid var(--ink);
+    }
+    .method-step { padding: .08in .09in; border-left: 1px solid var(--rule); }
+    .method-step:first-child { border-left: 0; }
+    .method-step b { display: block; color: var(--accent-dark); font-size: 8.2pt; letter-spacing: .05em; text-transform: uppercase; }
+    .method-step strong { display: block; margin: 3px 0; font-size: 9.5pt; line-height: 1.08; }
+    .method-step span { display: block; color: var(--body); font-size: 8pt; line-height: 1.16; }
+
+    .passkey-plan {
+      display: grid;
+      grid-template-columns: 1.15in 1fr 1fr;
+      gap: .14in;
+      padding: .1in .12in;
+      background: var(--cool);
+      border-top: 4px solid var(--ink);
+    }
+    .passkey-plan h2 { margin: 0; font-family: Palatino, Georgia, serif; font-size: 15pt; line-height: 1.02; }
+    .passkey-plan h3 { margin: 0 0 4px; color: var(--accent-dark); font-size: 9pt; text-transform: uppercase; }
+    .passkey-plan p { margin: 0; color: var(--body); font-size: 8.55pt; line-height: 1.22; }
+
+    .yubi-panel {
+      display: grid;
+      grid-template-columns: 1.45in minmax(0,1fr);
+      border: 2px solid var(--ink);
+    }
+    .yubi-buy { padding: .12in; background: var(--ink); color: white; }
+    .yubi-buy h2 { margin: 0 0 7px; font-family: Palatino, Georgia, serif; font-size: 16pt; line-height: 1.02; }
+    .yubi-buy p { margin: 0 0 6px; font-size: 8.35pt; line-height: 1.2; }
+    .yubi-buy p:last-child { margin: 0; }
+    .yubi-steps { display: grid; grid-template-columns: 1fr 1fr; }
+    .yubi-step { display: grid; grid-template-columns: 18px 1fr; gap: 5px; padding: .07in .08in; border-bottom: 1px solid var(--rule); }
+    .yubi-step:nth-child(odd) { border-right: 1px solid var(--rule); }
+    .yubi-step:nth-last-child(-n+2) { border-bottom: 0; }
+    .yubi-step b { color: var(--accent-dark); font-family: Palatino, Georgia, serif; font-size: 12pt; }
+    .yubi-step p { margin: 0; color: var(--body); font-size: 8.2pt; line-height: 1.17; }
+    .yubi-step strong { color: var(--ink); }
+
+    .auth-panel {
+      display: grid;
+      grid-template-columns: 1.48in minmax(0,1fr);
+      gap: .14in;
+      padding: .1in .12in;
+      background: var(--wash);
+      border-top: 4px solid var(--accent);
+    }
+    .auth-panel h2 { margin: 0 0 5px; font-family: Palatino, Georgia, serif; font-size: 15pt; line-height: 1.02; }
+    .auth-panel .warning { margin: 0; color: var(--accent-dark); font-size: 8.35pt; font-weight: 800; line-height: 1.2; }
+    .auth-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 4px .14in; counter-reset: auth; }
+    .auth-steps p { margin: 0; color: var(--body); font-size: 8.2pt; line-height: 1.18; }
+    .auth-steps p::before { counter-increment: auth; content: counter(auth) ". "; color: var(--accent-dark); font-weight: 850; }
+    .fallback-line { margin: 0; padding: .07in .1in; border: 1px solid var(--ink); font-size: 8.6pt; line-height: 1.22; }
+
+    .root-accounts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .14in; }
+    .root-account { padding: .1in .11in; background: var(--cool); border-top: 4px solid var(--ink); }
+    .root-account h2 { margin: 0 0 5px; font-family: Palatino, Georgia, serif; font-size: 13.5pt; }
+    .root-account p { margin: 0; color: var(--body); font-size: 8.55pt; line-height: 1.22; }
+
+    .recovery-rule {
+      display: grid;
+      grid-template-columns: 1.4in 1fr;
+      gap: .14in;
+      padding: .1in .12in;
+      background: var(--wash);
+      border-left: 5px solid var(--accent);
+    }
+    .recovery-rule h2 { margin: 0; font-family: Palatino, Georgia, serif; font-size: 15pt; line-height: 1.02; }
+    .recovery-rule p { margin: 0; color: var(--body); font-size: 8.8pt; line-height: 1.24; }
+
+    .recovery-columns { display: grid; grid-template-columns: 1fr 1fr; gap: .2in; }
+    .recovery-column {
+      display: grid;
+      grid-template-rows: auto repeat(6,minmax(0,1fr));
+      border-top: 4px solid var(--ink);
+    }
+    .recovery-column.danger {
+      grid-template-rows: auto repeat(8,minmax(0,1fr));
+      border-top-color: var(--accent);
+    }
+    .recovery-column header { padding: .09in .11in; background: var(--cool); }
+    .recovery-column.danger header { background: var(--wash); }
+    .recovery-column header p { margin: 0; color: var(--accent-dark); font-size: 7.8pt; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .recovery-column header h2 { margin: 2px 0 0; font-family: Palatino, Georgia, serif; font-size: 17pt; line-height: 1; }
+    .recovery-step { display: grid; grid-template-columns: 19px 1fr; gap: 5px; padding: .067in .05in; border-bottom: 1px solid var(--rule); }
+    .recovery-step b { color: var(--accent-dark); font-family: Palatino, Georgia, serif; font-size: 12pt; }
+    .recovery-step p { margin: 0; color: var(--body); font-size: 8.25pt; line-height: 1.18; }
+    .recovery-step strong { color: var(--ink); }
+    .household-strip { margin: 0; padding: .09in .12in; background: var(--ink); color: white; font-size: 8.8pt; line-height: 1.22; }
+
+    .page-five .dependency-map {
+      grid-template-rows: repeat(4,minmax(0,1fr));
+      gap: .18in .28in;
+      min-height: 3.9in;
+      padding-top: .3in;
+      padding-bottom: .2in;
+    }
+    .page-five .map-node { min-height: .48in; padding: .055in .07in; }
+    .page-five .map-node strong { font-size: 8.2pt; }
+    .page-five .map-node span { font-size: 7.1pt; }
+
+    /* Version 3: concise combined password and sign-in page */
+    .setup-page {
+      grid-template-rows: repeat(8,auto);
+      align-content: space-between;
+    }
+    .setup-page .password-types { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .setup-page .password-type p { font-size: 9.35pt; line-height: 1.26; }
+    .signin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .14in; }
+    .signin-card { padding: .1in .12in; border-top: 4px solid var(--ink); background: var(--cool); }
+    .signin-card h2 { margin: 0 0 5px; font-family: Palatino, Georgia, serif; font-size: 15.25pt; line-height: 1.04; }
+    .signin-card p { margin: 0; color: var(--body); font-size: 9.2pt; line-height: 1.24; }
+    .signin-card strong { color: var(--accent-dark); }
+    .setup-page .yubi-panel { grid-template-columns: 1.55in minmax(0,1fr); }
+    .setup-page .yubi-steps { grid-template-columns: 1fr 1fr; }
+    .setup-page .yubi-buy h2 { font-size: 17pt; }
+    .setup-page .yubi-buy p { font-size: 9.1pt; line-height: 1.24; }
+    .setup-page .yubi-step { align-content: center; padding: .09in .1in; }
+    .setup-page .yubi-step b { font-size: 13pt; }
+    .setup-page .yubi-step p { font-size: 9.15pt; line-height: 1.22; }
+    .setup-page .yubi-step:nth-last-child(-n+2) { border-bottom: 0; }
+    .auth-simple {
+      display: grid;
+      grid-template-columns: 1.7in 1fr 1fr;
+      gap: .14in;
+      padding: .1in .12in;
+      background: var(--wash);
+      border-top: 4px solid var(--accent);
+    }
+    .auth-simple h2 { margin: 0; font-family: Palatino, Georgia, serif; font-size: 15.5pt; line-height: 1.04; }
+    .auth-simple p { margin: 0; color: var(--body); font-size: 9.2pt; line-height: 1.24; }
+    .auth-simple b { color: var(--accent-dark); }
+    .recovery-strip { margin: 0; padding: .08in .1in; border: 1px solid var(--ink); font-size: 9.1pt; line-height: 1.24; }
+
+    .recovery-page { grid-template-rows: auto auto auto 1fr auto auto; }
+    .recovery-page .root-account h2 { font-size: 14.25pt; }
+    .recovery-page .root-account p { font-size: 9.15pt; line-height: 1.24; }
+    .recovery-page .recovery-rule h2 { font-size: 16pt; }
+    .recovery-page .recovery-rule p { font-size: 9.3pt; line-height: 1.25; }
+    .recovery-page .recovery-column header p { font-size: 8.25pt; }
+    .recovery-page .recovery-column header h2 { font-size: 18pt; }
+    .recovery-page .recovery-step { grid-template-columns: 21px 1fr; align-content: center; padding: .07in .06in; }
+    .recovery-page .recovery-step b { font-size: 13pt; }
+    .recovery-page .recovery-step p { font-size: 9pt; line-height: 1.2; }
+    .recovery-page .household-strip { font-size: 9.15pt; line-height: 1.24; }
+    .worksheet-page { grid-template-rows: auto auto 1fr auto auto auto; }
+    .worksheet-page .dependency-map {
+      grid-template-rows: repeat(4,minmax(0,1fr));
+      gap: .18in .28in;
+      min-height: 3.9in;
+      padding-top: .3in;
+      padding-bottom: .2in;
+    }
+    .worksheet-page .map-node { min-height: .48in; padding: .055in .07in; }
+    .worksheet-page .map-instruction { font-size: 8.5pt; }
+    .worksheet-page .map-node strong { font-size: 8.9pt; line-height: 1.06; }
+    .worksheet-page .map-node span { font-size: 7.75pt; line-height: 1.05; }
+    .worksheet-page .map-example h2 { font-size: 9.6pt; }
+    .worksheet-page .mini-route { font-size: 8.7pt; }
+    .worksheet-page .map-example p:last-child { font-size: 8.7pt; line-height: 1.24; }
+    .worksheet-page .weakness { font-size: 8.6pt; line-height: 1.2; }
+    .worksheet-page .marking-key { font-size: 8.9pt; }
+    .worksheet-page .worksheet-safety { font-size: 9pt; }
+    .pattern-lines { display: grid; gap: 4px; margin: 5px 0; }
+    .pattern-line { display: grid; grid-template-columns: 17px 1fr; gap: 5px; align-items: start; }
+    .pattern-line b { display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); color: white; font-size: 7.2pt; }
+    .pattern-line span { font-size: 8.55pt; font-weight: 760; line-height: 1.2; }
+
+    @media screen and (max-width: 860px) {
+      .password-types, .password-bottom, .method-order, .passkey-plan, .yubi-panel, .auth-panel, .root-accounts, .recovery-rule, .recovery-columns { display: block; }
+      .password-type, .method-step, .passkey-plan > *, .root-account { margin-bottom: 18px; }
+      .storage-guide { display: block; }
+      .storage-head { display: none; }
+      .storage-row { display: block; padding: 14px; }
+      .storage-row > * { display: block; padding: 3px 0; font-size: 1rem; line-height: 1.4; }
+      .plain-rule, .today-box, .passkey-plan, .yubi-buy, .auth-panel, .recovery-rule, .household-strip { padding: 18px; }
+      .today-box, .yubi-panel, .root-account, .recovery-column { margin-top: 20px; }
+      .today-list, .yubi-steps, .auth-steps { grid-template-columns: 1fr; }
+      .method-step { border-left: 0; border-top: 1px solid var(--rule); padding: 16px; }
+      .method-step:first-child { border-top: 0; }
+      .method-step b, .method-step strong, .method-step span, .password-type p, .passkey-plan p, .yubi-buy p, .yubi-step p, .auth-panel .warning, .auth-steps p, .fallback-line, .root-account p, .recovery-rule p, .recovery-step p, .household-strip { font-size: 1rem; line-height: 1.42; }
+      .yubi-buy { color: white; }
+      .yubi-step { padding: 16px 6px; border-right: 0 !important; }
+      .yubi-step:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+      .auth-panel h2, .recovery-rule h2 { font-size: 1.65rem; }
+      .recovery-column { display: block; }
+      .recovery-column + .recovery-column { margin-top: 28px; }
+      .recovery-step { padding: 16px 6px; }
+      .page-five .dependency-map { grid-template-rows: none; min-height: 0; gap: 18px; }
+      .signin-grid, .auth-simple { display: block; }
+      .signin-card, .auth-simple > * { margin-bottom: 18px; }
+      .auth-simple { padding: 18px; }
+      .signin-card p, .auth-simple p, .recovery-strip { font-size: 1rem; line-height: 1.42; }
+      .worksheet-page .dependency-map { grid-template-rows: none; min-height: 0; gap: 18px; }
+    }
+
     @media screen and (max-width: 860px) {
       .document { display: block; padding: 0; }
       .sheet {
@@ -834,7 +1083,7 @@
         page-break-after: always;
       }
       .sheet:last-child { break-after: auto; page-break-after: auto; }
-      .priority, .agent-note, .win, .guide-heading, .emergency, .procedure header, .procedure.danger header {
+      .priority, .agent-note, .win, .guide-heading, .emergency, .yubi-buy, .household-strip, .procedure header, .procedure.danger header {
         background: white;
         color: var(--ink);
         border: 2px solid var(--ink);
@@ -856,8 +1105,8 @@
       </header>
 
       <aside class="premise">
-        <strong>These are separate ways in.</strong>
-        <p>An attacker does not need to follow one movie-like sequence. A leaked password, a convincing call, weak recovery, a stolen signed-in session, or a software flaw can each be the opening. <b>Your goal is to keep one opening from spreading everywhere.</b></p>
+        <strong>Five different openings can expose your accounts.</strong>
+        <p>An attacker only needs one opening: a leaked password, a convincing call, weak recovery, a stolen signed-in session, or a software flaw. <b>Your goal is to keep one opening from spreading everywhere.</b></p>
       </aside>
 
       <section class="path-list" aria-label="Five common attack paths">
@@ -865,36 +1114,36 @@
           <div class="path-num">1</div>
           <h2>A password leaks</h2>
           <p>A password from an old site is tried against email or shopping accounts. AI adds little here; ordinary automation already does most of this.</p>
-          <p class="response"><strong>Best interruption:</strong> use a generated password for each account and protect email first.</p>
+          <p class="response"><strong>Best defence:</strong> use a generated password for each account and protect email first.</p>
         </article>
         <article class="path">
           <div class="path-num">2</div>
           <h2>The request looks real</h2>
           <p>AI can imitate writing or a familiar voice and tailor a story using public information. Caller ID, tone, and personal details are not proof.</p>
-          <p class="response"><strong>Best interruption:</strong> end the incoming contact and call back using a saved number or the number on your card.</p>
+          <p class="response"><strong>Best defence:</strong> end the incoming contact and call back using a saved number or the number on your card.</p>
         </article>
         <article class="path">
           <div class="path-num">3</div>
           <h2>Recovery is weaker</h2>
           <p>An old phone number, recovery email, support process, or carrier account can bypass a strong sign-in. AI can help gather details and adapt a script.</p>
-          <p class="response"><strong>Best interruption:</strong> keep two independent, tested recovery routes for your most important accounts.</p>
+          <p class="response"><strong>Best defence:</strong> keep a tested recovery method for your most important accounts.</p>
         </article>
         <article class="path">
           <div class="path-num">4</div>
           <h2>A signed-in device is abused</h2>
           <p>Malware or a stolen browser session can act as though the device is already signed in. Changing the password may not end that access.</p>
-          <p class="response"><strong>Best interruption:</strong> update devices, use a strong device passcode, and revoke sessions after suspected compromise.</p>
+          <p class="response"><strong>Best defence:</strong> update devices, use a strong device passcode, and revoke sessions after suspected compromise.</p>
         </article>
         <article class="path">
           <div class="path-num">5</div>
           <h2>Trusted software has a flaw</h2>
           <p>AI can help skilled attackers inspect code and adapt known attacks against login, messaging, payment, or password systems.</p>
-          <p class="response"><strong>Best interruption:</strong> update software you control. If a provider reports a breach, use its official notice, review account changes, and distrust breach-related “support.”</p>
+          <p class="response"><strong>Best defence:</strong> update software you control. If a provider reports a breach, use its official notice, review account changes, and distrust breach-related “support.”</p>
         </article>
       </section>
 
       <aside class="agent-note">
-        <h2>Your own AI helper needs limits too</h2>
+        <h2>You AI buddy needs limits too</h2>
         <p>Do not connect a general AI assistant to a password vault or financial account. Avoid broad unattended access to email or a logged-in browser. Never upload password exports, recovery codes, private keys, identity documents, or a complete browser profile. Prefer one task, limited access, and approval before sending, deleting, buying, or changing security settings.</p>
       </aside>
 
@@ -904,139 +1153,142 @@
       </footer>
     </section>
 
-    <section class="sheet page-two" aria-labelledby="p2-title">
+    <section class="sheet page-two setup-page" aria-labelledby="p2-title">
       <header class="masthead">
         <div>
-          <h2 class="page-title" id="p2-title">Do these things first</h2>
-          <p class="framing">You do not need perfect security or a weekend-long overhaul. Start with the accounts that control the rest, then improve one account at a time.</p>
+          <h2 class="page-title" id="p2-title">Set up passwords and sign-in</h2>
+          <p class="framing">Use a password manager to generate and save a different password for every account. Add stronger sign-in to the accounts that can unlock everything else.</p>
         </div>
         <div class="page-number">Page 2</div>
       </header>
 
-      <section class="priority" aria-label="Priority accounts">
+      <aside class="priority">
         <strong>Protect in this order</strong>
-        <span>Email → Apple / Google / Microsoft → Password manager → Carrier → Banking</span>
-      </section>
-
-      <section class="moves" aria-label="Six highest-priority actions">
-        <article class="move">
-          <div class="move-num">1</div>
-          <div><h2>Secure your main email</h2><p>Give it a password used nowhere else or add a passkey. Check recovery details and remove devices you do not recognize.</p><span class="stops">Stops one takeover from becoming many resets.</span></div>
-        </article>
-        <article class="move">
-          <div class="move-num">2</div>
-          <div><h2>Replace reuse gradually</h2><p>Let Apple Passwords, Google Password Manager, or another trusted manager generate and save each new password. Move one account at a time.</p><span class="stops">Stops one leaked password from opening a second site.</span></div>
-        </article>
-        <article class="move">
-          <div class="move-num">3</div>
-          <div><h2>Use the strongest sign-in offered</h2><p>Choose a passkey when available. It protects the sign-in step, although a site may still keep weaker password or recovery routes.</p><span class="stops">Makes fake login pages much less useful.</span></div>
-        </article>
-        <article class="move">
-          <div class="move-num">4</div>
-          <div><h2>Build recovery before tightening</h2><p>For email, your platform account, and password manager, keep two tested recovery routes in different places.</p><span class="stops">Reduces both lockout and recovery bypass.</span></div>
-        </article>
-        <article class="move">
-          <div class="move-num">5</div>
-          <div><h2>Keep the devices current</h2><p>Use a strong device passcode, install updates promptly, remove unused apps and extensions, and retire unsupported devices.</p><span class="stops">Limits theft, malware, and known software flaws.</span></div>
-        </article>
-        <article class="move">
-          <div class="move-num">6</div>
-          <div><h2>Use one rule for urgent contact</h2><p>If anyone asks for money, a password, or a code, leave the incoming call or message and contact them through a route you already trust.</p><span class="stops">Works even when the voice or message looks familiar.</span></div>
-        </article>
-      </section>
-
-      <aside class="password-box" aria-label="Simplified password guidance">
-        <h2>If you still need a password</h2>
-        <section>
-          <h3>Avoid</h3>
-          <ul>
-            <li>Pet names, birthdays, quotations, or predictable substitutions</li>
-            <li>One base password changed slightly for each site</li>
-            <li>Reusing even a complicated-looking password</li>
-          </ul>
-        </section>
-        <section>
-          <h3>Do this instead</h3>
-          <ul>
-            <li>Let a password manager generate and save each ordinary password.</li>
-            <li>For the manager’s master password, use a long randomly generated passphrase.</li>
-            <li>Never copy a password printed as an example.</li>
-          </ul>
-        </section>
+        <span>Primary email → Apple account → Password manager → Carrier → Banking</span>
       </aside>
 
-      <section class="fifteen" aria-label="Fifteen minute checklist">
-        <h2>Fifteen minutes today</h2>
-        <div class="quick-check"><span class="check-box"></span><span>Secure your main email</span></div>
-        <div class="quick-check"><span class="check-box"></span><span>Replace one reused password</span></div>
-        <div class="quick-check"><span class="check-box"></span><span>Confirm recovery phone and email</span></div>
-        <div class="quick-check"><span class="check-box"></span><span>For urgent requests, leave and call back</span></div>
+      <section class="password-types" aria-label="Passwords and device PINs">
+        <article class="password-type">
+          <h2>Website passwords</h2>
+          <p><strong>Use your password manager to generate and autofill them.</strong> Use at least 20 random characters when the website allows it.</p>
+          <p>Use a different password for every account. Do not save passwords in email, messages, photos, spreadsheets, or ordinary notes.</p>
+        </article>
+        <article class="password-type master">
+          <h2>The one password you remember</h2>
+          <p>For your password manager, use <b>six randomly chosen words</b>. Do not use a quotation, lyric, personal story, pet, address, or date.</p>
+          <p>Memorize it and keep one sealed paper copy in a protected physical location.</p>
+        </article>
+        <article class="password-type">
+          <h2>Phone or computer PIN</h2>
+          <p>Use at least <b>six nonpersonal digits</b>; longer is better. Do not reuse a bank-card PIN or the same PIN across devices.</p>
+          <p>Face or fingerprint unlock is convenient, but the PIN is still the fallback key.</p>
+        </article>
       </section>
 
+      <section class="signin-grid" aria-label="Passkey guidance">
+        <article class="signin-card">
+          <h2>Use a passkey when offered</h2>
+          <p>For ordinary accounts, save it in the password manager you already use across your devices. Confirm where the browser will save it. Your face, fingerprint, or PIN unlocks the passkey locally; the website does not receive your biometric.</p>
+        </article>
+        <article class="signin-card">
+          <h2>Use a YubiKey for critical accounts</h2>
+          <p>For primary email, Apple, and your password manager where supported, select <strong>Security key</strong> when asked where to save the passkey. Keep printed recovery codes in a secure physical location.</p>
+        </article>
+      </section>
+
+      <section class="yubi-panel" aria-label="YubiKey buying and setup instructions">
+        <aside class="yubi-buy">
+          <h2>Buy a pair</h2>
+          <p><b>Buy two of the same YubiKey.</b></p>
+          <p>Buy new from Yubico or an authorized seller.</p>
+          <p>Use one daily and keep the other as your spare.</p>
+        </aside>
+        <div class="yubi-steps">
+          <article class="yubi-step"><b>1</b><p>Open the account’s official <strong>Security</strong>, <strong>Two-step verification</strong>, or <strong>Passkeys</strong> settings.</p></article>
+          <article class="yubi-step"><b>2</b><p>Add the first key, then add the spare separately. If prompted for a location, choose <strong>Security key</strong>.</p></article>
+          <article class="yubi-step"><b>3</b><p>Sign out and test each key. A spare that was never registered will not get you back in.</p></article>
+          <article class="yubi-step"><b>4</b><p>Carry the everyday key and store the spare elsewhere. Do not label either key with passwords or account details.</p></article>
+        </div>
+      </section>
+
+      <section class="auth-simple" aria-label="Google Authenticator settings">
+        <h2>Google Authenticator</h2>
+        <p><b>Turn off cloud sync:</b> tap the cloud icon in the upper-right. The icon should be gray and crossed out.</p>
+        <p><b>Lock the app:</b> open <strong>Menu → Settings → Privacy Screen</strong>.</p>
+      </section>
+
+      <p class="recovery-strip"><strong>Keep a way back in:</strong> print the recovery codes supplied by important accounts, label them, and store them securely offline. Do not keep the only copy inside the phone, email account, or password manager it is meant to recover.</p>
+
       <footer>
-        <span>You can improve the rest when you next sign in. Progress beats postponing everything.</span>
+        <span>References: <a href="https://pages.nist.gov/800-63-4/sp800-63b.html">NIST</a> • <a href="https://www.yubico.com/setup/">Yubico</a> • <a href="https://support.google.com/accounts/answer/1066447">Google Authenticator</a> • <a href="https://fidoalliance.org/passkeys/">FIDO Alliance</a></span>
+        <span>Page 2</span>
       </footer>
     </section>
 
-    <section class="sheet page-three" aria-labelledby="p3-title">
+    <section class="sheet page-three recovery-page" aria-labelledby="p3-title">
       <header class="masthead">
         <div>
-          <h2 class="page-title" id="p3-title">Choose your next step</h2>
-          <p class="framing">Use the left side if you are still setting things up. Use the right side if you already have the basics covered.</p>
+          <h2 class="page-title" id="p3-title">Recover without creating a new weakness</h2>
+          <p class="framing">Prepare while every account still works. During an incident, follow the order instead of improvising from a suspicious message.</p>
         </div>
         <div class="page-number">Page 3</div>
       </header>
 
-      <section class="sign-in-guide" aria-label="Password, passkey, and security key comparison">
-        <div class="guide-heading"><h2>What’s the difference?</h2></div>
-        <article class="term"><h3>Password</h3><p>A reusable secret you type. <strong>Use a different generated password for every account.</strong></p></article>
-        <article class="term"><h3>Passkey</h3><p>A phishing-resistant way to sign in. Your device or password manager saves it; you approve with a face, fingerprint, or device PIN. <strong>Weaker recovery routes may still remain.</strong></p></article>
-        <article class="term"><h3>Security key</h3><p>A small physical key you plug in or tap. <strong>An advanced option for your most important accounts.</strong></p></article>
+      <section class="root-accounts" aria-label="Critical account recovery requirements">
+        <article class="root-account"><h2>Primary email</h2><p>Use a strong daily sign-in, keep printed recovery codes, and remove unknown sessions, forwarding rules, and connected apps.</p></article>
+        <article class="root-account"><h2>Apple account</h2><p>Keep the recovery phone current, review trusted devices, and know which devices and passkeys depend on this account.</p></article>
+        <article class="root-account"><h2>Password manager</h2><p>Use a unique six-word master password and keep sealed offline recovery instructions in a protected location.</p></article>
       </section>
 
-      <section class="lanes" aria-label="Beginner and advanced guidance">
-        <section class="lane" aria-labelledby="setup-title">
-          <header class="lane-head"><p>I’m still getting set up</p><h2 id="setup-title">Help me do it</h2></header>
-          <article class="lane-step"><div class="step-num">1</div><div><h3>Start a password manager</h3><p>Use Apple Passwords, Google Password Manager, or another trusted manager. Move accounts gradually; you do not need to fix everything today.</p></div></article>
-          <article class="lane-step"><div class="step-num">2</div><div><h3>Fix primary email first</h3><p>Give it a unique password or passkey. Check recovery details, signed-in devices, and backup codes.</p></div></article>
-          <article class="lane-step"><div class="step-num">3</div><div><h3>Add a passkey</h3><p>When a site offers one, save it to your device or password manager. Confirm another sign-in and recovery route before removing an old method.</p></div></article>
-          <article class="lane-step"><div class="step-num">4</div><div><h3>Keep recovery independent</h3><p>For critical accounts, keep two tested recovery routes in different places. Do not put the only backup inside the phone, account, or vault it unlocks.</p></div></article>
-          <article class="lane-step"><div class="step-num">5</div><div><h3>Practice one verification rule</h3><p>If anyone urgently asks for money, a password, or a code, leave the contact and call back using a number you already trust.</p></div></article>
-        </section>
-
-        <section class="lane advanced" aria-labelledby="advanced-title">
-          <header class="lane-head"><p>I’ve got the basics covered</p><h2 id="advanced-title">Help me go further</h2></header>
-          <article class="lane-step"><div class="step-num">1</div><div><h3>Harden the keys to everything</h3><p>Use passkeys or physical security keys on primary email, platform identity, password manager, financial, and carrier accounts.</p></div></article>
-          <article class="lane-step"><div class="step-num">2</div><div><h3>Protect your phone number</h3><p>Add a carrier PIN and number-transfer lock when available. Avoid making texts the only recovery route for every account.</p></div></article>
-          <article class="lane-step"><div class="step-num">3</div><div><h3>Review access that can survive</h3><p>Check signed-in sessions, email forwarding, authorized apps, app passwords, and connected services. A password change may not end existing access.</p></div></article>
-          <article class="lane-step"><div class="step-num">4</div><div><h3>Remove forgotten access</h3><p>Sign out old devices, remove unused apps and browser extensions, install updates, and retire devices that no longer receive fixes.</p></div></article>
-          <article class="lane-step"><div class="step-num">5</div><div><h3>Plan for a real emergency</h3><p>Make sure a spouse, caregiver, or executor can locate recovery instructions without casually sharing your master password.</p></div></article>
-        </section>
-      </section>
-
-      <aside class="emergency">
-        <h2>Think an account was hacked?</h2>
-        <p><strong>Stop responding.</strong> From a trusted, updated device that was not used to open the suspicious link or install anything, open the official app or site directly. Secure email first; change exposed or reused passwords; sign out other sessions; check recovery details, forwarding, and connected apps; then call the bank, carrier, or service using a number from its official app, your card or statement, or your saved contacts.</p>
+      <aside class="recovery-rule">
+        <h2>One strong sign-in and one backup</h2>
+        <p>Use a strong daily method such as a passkey or YubiKey, plus printed recovery codes or the provider’s recovery process. Remove stale phone numbers, old email addresses, and security questions only after the replacement works.</p>
       </aside>
 
+      <section class="recovery-columns">
+        <section class="recovery-column" aria-labelledby="prepare-title">
+          <header><p>Before anything goes wrong</p><h2 id="prepare-title">Prepare and test</h2></header>
+          <article class="recovery-step"><b>1</b><p><strong>Register both YubiKeys</strong> separately with each supported critical account.</p></article>
+          <article class="recovery-step"><b>2</b><p><strong>Print fresh recovery codes.</strong> Label the service and date; many codes work only once.</p></article>
+          <article class="recovery-step"><b>3</b><p><strong>Separate the backups.</strong> Do not keep phone, everyday key, spare key, and recovery paper together.</p></article>
+          <article class="recovery-step"><b>4</b><p><strong>Verify normal sign-in</strong> with each key or authenticator. Do not consume the only recovery code merely to test it.</p></article>
+          <article class="recovery-step"><b>5</b><p><strong>Plan for phone loss.</strong> Make sure access survives losing both the phone and primary email.</p></article>
+          <article class="recovery-step"><b>6</b><p><strong>Prepare household access.</strong> Use provider emergency-access or legacy features, or sealed instructions—not a casually shared master password.</p></article>
+        </section>
+
+        <section class="recovery-column danger" aria-labelledby="incident-title">
+          <header><p>If an account or device may be compromised</p><h2 id="incident-title">Act in this order</h2></header>
+          <article class="recovery-step"><b>1</b><p><strong>Stop responding.</strong> Do not enter another password, code, or approval prompt.</p></article>
+          <article class="recovery-step"><b>2</b><p><strong>Protect money immediately.</strong> Call the bank using the card, statement, or official app—not the message or a search advertisement.</p></article>
+          <article class="recovery-step"><b>3</b><p><strong>Use a different trusted, updated device</strong> if the affected device opened a suspicious link or installed software.</p></article>
+          <article class="recovery-step"><b>4</b><p><strong>Secure primary email first.</strong> Then replace any exposed or reused password with a generated one.</p></article>
+          <article class="recovery-step"><b>5</b><p><strong>End persistent access.</strong> Sign out other sessions; remove unknown devices, passkeys, security keys, and app passwords.</p></article>
+          <article class="recovery-step"><b>6</b><p><strong>Inspect recovery and email.</strong> Check phone, email, forwarding, filters, authorized apps, and connected services.</p></article>
+          <article class="recovery-step"><b>7</b><p><strong>Call the carrier</strong> if service vanishes unexpectedly or a number transfer is suspected.</p></article>
+          <article class="recovery-step"><b>8</b><p><strong>Preserve evidence.</strong> Keep suspicious messages and transaction details, but do not continue the conversation.</p></article>
+        </section>
+      </section>
+
+      <p class="household-strip"><strong>Remember:</strong> changing a password may not end an existing signed-in session. If untrusted software may have been installed, rebuild the device or obtain qualified in-person help before trusting it again.</p>
+
       <footer>
-        <span>Sources: <a href="https://www.cisa.gov/MFA">CISA</a> • <a href="https://fidoalliance.org/passkeys/">FIDO Alliance</a> • <a href="https://www.ic3.gov/PSA/2024/PSA241203">FBI/IC3</a> • <a href="https://consumer.ftc.gov/consumer-alerts/2023/03/scammers-use-ai-enhance-their-family-emergency-schemes">FTC</a> • <a href="https://www.eff.org/dice">EFF</a></span>
-        <span>Updated August 2026</span>
+        <span>Incident references: <a href="https://www.cisa.gov/MFA">CISA</a> • <a href="https://www.ic3.gov/">FBI/IC3</a> • <a href="https://consumer.ftc.gov/scams">FTC</a></span>
+        <span>Page 3</span>
       </footer>
     </section>
 
-    <section class="sheet page-four" aria-labelledby="p4-title">
+    <section class="sheet page-four worksheet-page" aria-labelledby="p4-title">
       <header class="masthead">
         <div>
           <h2 class="page-title" id="p4-title">Map what can unlock what</h2>
-          <p class="framing">Draw the recovery and dependency routes across your important accounts. The result should show where one loss or compromise could spread.</p>
+          <p class="framing">Draw the sign-in and recovery routes across your important accounts. The result should show where one loss or compromise could spread.</p>
         </div>
         <div class="page-number">Page 4</div>
       </header>
 
       <aside class="worksheet-rule">
         <strong>Use one kind of arrow</strong>
-        <p>Draw <b>A → B</b> when access to A can unlock, reset, reveal a secret for, or bypass B. Label each box, cross out what you do not use, and draw additional boxes where needed.</p>
+        <p>Draw <b>A → B</b> when access to A can sign in to, unlock, reset, reveal a secret for, or bypass B. Label each box, cross out what you do not use, and add boxes where needed.</p>
       </aside>
 
       <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
@@ -1051,6 +1303,8 @@
         <symbol id="ws-cloud" viewBox="0 0 24 24"><path d="M7 18h11a4 4 0 0 0 .5-8A6 6 0 0 0 7 8.5 4.5 4.5 0 0 0 7 18z"/></symbol>
         <symbol id="ws-bank" viewBox="0 0 24 24"><path d="M3 9h18L12 3zM5 9v8M9 9v8M15 9v8M19 9v8M3 17h18M2 21h20"/></symbol>
         <symbol id="ws-tower" viewBox="0 0 24 24"><path d="M12 6v15M8 21h8M9 15h6M10 10h4M6 8a8 8 0 0 1 0-5M18 8a8 8 0 0 0 0-5M8.5 9a5 5 0 0 1 0-5M15.5 9a5 5 0 0 0 0-5"/></symbol>
+        <symbol id="ws-auth" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="8" cy="9" r="1"/><circle cx="12" cy="9" r="1"/><circle cx="16" cy="9" r="1"/><path d="M8 14h8M8 17h5"/></symbol>
+        <symbol id="ws-family" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3 20c.7-4 2.7-6 6-6s5.3 2 6 6M15 15c3 0 4.8 1.7 5.5 5"/></symbol>
         <symbol id="ws-other" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/></symbol>
       </svg>
 
@@ -1058,29 +1312,25 @@
         <p class="map-instruction">Draw arrows directly on this map. Use the open space for routes, notes, and additional accounts.</p>
         <div class="map-node"><svg aria-hidden="true"><use href="#ws-brain"/></svg><div><strong>Remembered secret</strong><span>Used for: __________</span></div></div>
         <div class="map-node"><svg aria-hidden="true"><use href="#ws-safe"/></svg><div><strong>Physical safe</strong><span>Location: __________</span></div></div>
-        <div class="map-node"><svg aria-hidden="true"><use href="#ws-key"/></svg><div><strong>Password manager</strong><span>e.g., Bitwarden: ____</span></div></div>
-        <div class="map-node"><svg aria-hidden="true"><use href="#ws-note"/></svg><div><strong>Digital notes</strong><span>e.g., Obsidian: _____</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-note"/></svg><div><strong>Recovery codes</strong><span>Stored: ___________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-family"/></svg><div><strong>Trusted person</strong><span>Role: ______________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-phone"/></svg><div><strong>Phone / PIN</strong><span>Device: ___________</span></div></div>
         <div class="map-node"><svg aria-hidden="true"><use href="#ws-mail"/></svg><div><strong>Primary email</strong><span>Account: __________</span></div></div>
-        <div class="map-node"><svg aria-hidden="true"><use href="#ws-id"/></svg><div><strong>Platform account</strong><span>Apple / Google / MS</span></div></div>
-        <div class="map-node"><svg aria-hidden="true"><use href="#ws-laptop"/></svg><div><strong>Laptop login</strong><span>Device: ___________</span></div></div>
-        <div class="map-node"><svg aria-hidden="true"><use href="#ws-phone"/></svg><div><strong>Phone PIN</strong><span>Device: ___________</span></div></div>
-        <div class="map-node"><svg aria-hidden="true"><use href="#ws-cloud"/></svg><div><strong>Cloud storage</strong><span>e.g., Dropbox: _____</span></div></div>
-        <div class="map-node"><svg aria-hidden="true"><use href="#ws-bank"/></svg><div><strong>Bank / payment</strong><span>Account: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-id"/></svg><div><strong>Apple account</strong><span>Email: ____________</span></div></div>
         <div class="map-node"><svg aria-hidden="true"><use href="#ws-tower"/></svg><div><strong>Phone carrier</strong><span>Provider: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-laptop"/></svg><div><strong>Laptop login</strong><span>Device: ___________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-key"/></svg><div><strong>Password manager</strong><span>Provider: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-key"/></svg><div><strong>YubiKey pair</strong><span>Accounts: _________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-cloud"/></svg><div><strong>Cloud storage</strong><span>Provider: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-bank"/></svg><div><strong>Bank / payment</strong><span>Account: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-note"/></svg><div><strong>Digital notes</strong><span>Provider: __________</span></div></div>
+        <div class="map-node"><svg aria-hidden="true"><use href="#ws-auth"/></svg><div><strong>Authenticator app</strong><span>Device: ___________</span></div></div>
         <div class="map-node"><svg aria-hidden="true"><use href="#ws-other"/></svg><div><strong>Other</strong><span>Name: ____________</span></div></div>
       </section>
 
       <section class="map-examples" aria-label="Dependency map examples">
-        <article class="map-example bad">
-          <h2>Weak pattern: a loop</h2>
-          <p class="mini-route">Digital notes → Password manager → Cloud storage → Digital notes</p>
-          <p>Each service holds the next secret. Losing access may block recovery; compromising one may spread around the loop.</p>
-        </article>
-        <article class="map-example good">
-          <h2>Stronger pattern: separate routes</h2>
-          <p class="mini-route">Remembered passphrase → Password manager → Accounts<br>Physical safe → Backup code → Primary email</p>
-          <p>The important recovery routes live in different places, and neither route circles back into itself.</p>
-        </article>
+        <article class="map-example bad"><h2>Weak pattern: a loop</h2><p class="mini-route">Digital notes → Password manager → Cloud storage → Digital notes</p><p>Each service holds the next secret. Losing one may block recovery; compromising one may spread around the loop.</p></article>
+        <article class="map-example good"><h2>Stronger patterns: three separate routes</h2><div class="pattern-lines"><div class="pattern-line"><b>1</b><span>Remembered passphrase → Password manager → Accounts</span></div><div class="pattern-line"><b>2</b><span>YubiKey pair → Primary email</span></div><div class="pattern-line"><b>3</b><span>Physical safe → Recovery codes</span></div></div><p>These are three examples. They live in different places and do not all depend on one phone or cloud account.</p></article>
       </section>
 
       <section class="map-assessment" aria-labelledby="assessment-title">
@@ -1088,17 +1338,17 @@
         <div class="assessment-body">
           <div class="weakness-grid">
             <div class="weakness">A route circles back to where it started.</div>
-            <div class="weakness">One phone, email, or vault controls most routes.</div>
-            <div class="weakness">Recovery is stored inside what it must recover.</div>
-            <div class="weakness">A weaker reset route bypasses a strong passkey.</div>
-            <div class="weakness">An old device, phone number, or app is still trusted.</div>
+            <div class="weakness">One phone, primary email, or Apple account controls most routes.</div>
+            <div class="weakness">Authenticator codes are cloud-synchronized.</div>
+            <div class="weakness">Password and second factor share the same locked vault.</div>
+            <div class="weakness">The YubiKey pair is kept together or the spare is unregistered.</div>
             <div class="weakness">No route survives losing both phone and email.</div>
           </div>
           <p class="marking-key">Circle a single point of failure. Put an X beside every loop. Star one route to separate or strengthen this week.</p>
         </div>
       </section>
 
-      <p class="worksheet-safety"><strong>Do not write actual passwords, PINs, recovery codes, or private keys on this page.</strong> A completed map reveals how your accounts fit together. Store it securely, or destroy it after making the changes you identified.</p>
+      <p class="worksheet-safety"><strong>Do not write actual passwords, PINs, authentication codes, recovery codes, or private keys on this page.</strong> A completed map reveals how your accounts fit together. Store it securely, or destroy it after making the changes you identified.</p>
     </section>
   </main>
 </body>
